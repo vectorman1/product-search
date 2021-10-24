@@ -1,13 +1,18 @@
-version: 3.3
+version: "3.3"
 
 services:
-  elastic:
+  elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch-oss:6.2.2
     volumes:
       - es-data:/usr/share/elasticsearch/data
     ports:
       - "9200:9200"
       - "9300:9300"
+    environment:
+      - "discovery.type=single-node"
+      - "node.name=es01"
+      - "bootstrap.memory_lock=true"
+      - "ES_JAVA_OPTS=-Xms1024m -Xmx1024m"
     networks:
       - elk
 
@@ -18,12 +23,14 @@ services:
       - ./dataset:/var/log/dataset:ro
     ports:
       - "5000:5000"
+    environment:
+      LS_JAVA_OPTS: "-Xmx2048m -Xms2048m"
     networks:
       - elk
     depends_on:
-      - elastic
+      - elasticsearch
     links:
-      - elastic
+      - elasticsearch
 
   kibana:
     image: docker.elastic.co/kibana/kibana-oss:6.2.2
