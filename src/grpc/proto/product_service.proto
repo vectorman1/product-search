@@ -5,7 +5,7 @@ option go_package = "product_service/generated/product_service";
 
 
 message ProductSearchRequest {
-  string Name = 3;
+  string Query = 1;
 }
 
 message ProductSearchResponse {

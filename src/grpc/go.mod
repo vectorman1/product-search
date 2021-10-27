@@ -3,6 +3,7 @@ module product_service
 go 1.17
 
 require (
+	github.com/elastic/go-elasticsearch/v8 v8.0.0-20211026132249-f55eeca23be5
 	google.golang.org/grpc v1.41.0
 	google.golang.org/protobuf v1.27.1
 )

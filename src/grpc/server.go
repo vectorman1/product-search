@@ -8,6 +8,7 @@ import (
 	"product_service/generated/product_service"
 	"product_service/presentation"
 
+	"github.com/elastic/go-elasticsearch/v8"
 	"google.golang.org/grpc"
 )
 
@@ -19,7 +20,19 @@ func main() {
 
 	server := grpc.NewServer()
 
-	productService := presentation.NewProductServiceServer()
+	esConfig := elasticsearch.Config{
+		Username: "elastic",
+		Password: "changeme",
+		Addresses: []string{
+			"http://elasticsearch:9200",
+		},
+	}
+	elasticClient, err := elasticsearch.NewClient(esConfig)
+	if err != nil {
+		panic(err)
+	}
+
+	productService := presentation.NewProductServiceServer(elasticClient)
 	product_service.RegisterProductServiceServer(server, productService)
 
 	c := make(chan os.Signal, 1)
