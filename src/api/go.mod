@@ -1,4 +1,4 @@
-module github.com/vectorman/product-search/graph
+module github.com/vectorman1/product-search/graph
 
 go 1.17
 
