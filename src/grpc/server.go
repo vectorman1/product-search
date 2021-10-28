@@ -5,20 +5,20 @@ import (
 	"net"
 	"os"
 	"os/signal"
-	"product_service/generated/product_service"
-	"product_service/presentation"
+
+	"github.com/vectorman1/product-search/grpc/generated/product_service"
+	"github.com/vectorman1/product-search/grpc/presentation"
 
 	"github.com/elastic/go-elasticsearch/v8"
+
 	"google.golang.org/grpc"
 )
 
 func main() {
-	listen, err := net.Listen("tcp", ":3000")
+	listen, err := net.Listen("tcp", ":10001")
 	if err != nil {
 		panic(err)
 	}
-
-	server := grpc.NewServer()
 
 	esConfig := elasticsearch.Config{
 		Username: "elastic",
@@ -27,12 +27,14 @@ func main() {
 			"http://elasticsearch:9200",
 		},
 	}
-	elasticClient, err := elasticsearch.NewClient(esConfig)
+	es, err := elasticsearch.NewClient(esConfig)
 	if err != nil {
 		panic(err)
 	}
 
-	productService := presentation.NewProductServiceServer(elasticClient)
+	server := grpc.NewServer()
+
+	productService := presentation.NewProductServiceServer(es)
 	product_service.RegisterProductServiceServer(server, productService)
 
 	c := make(chan os.Signal, 1)

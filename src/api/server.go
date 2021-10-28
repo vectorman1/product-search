@@ -4,14 +4,15 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"product-search/graph"
-	"product-search/graph/generated"
+
+	"github.com/vectorman/product-search/graph/graph"
+	"github.com/vectorman/product-search/graph/graph/generated"
 
 	"github.com/99designs/gqlgen/graphql/handler"
 	"github.com/99designs/gqlgen/graphql/playground"
 )
 
-const defaultPort = "8080"
+const defaultPort = "10002"
 
 func main() {
 	port := os.Getenv("PORT")

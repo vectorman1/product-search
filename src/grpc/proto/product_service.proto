@@ -4,11 +4,13 @@ package product_service;
 option go_package = "product_service/generated/product_service";
 
 
-message ProductSearchRequest {
+message SearchRequest {
   string Query = 1;
+  repeated string Fields = 2;
+  int32 PageSize = 3;
 }
 
-message ProductSearchResponse {
+message SearchResponse {
   repeated Product items = 1;
 }
 
@@ -39,6 +41,6 @@ message Product {
 
 
 service ProductService {
-  rpc Search(ProductSearchRequest) returns (ProductSearchResponse) {
+  rpc Search(SearchRequest) returns (SearchResponse) {
   }
 }

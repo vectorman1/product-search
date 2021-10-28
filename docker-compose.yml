@@ -45,6 +45,30 @@ services:
     links:
       - elasticsearch
 
+  product-service:
+    build:
+      dockerfile: ./src/grpc/Dockerfile
+    ports:
+      - "10001:10001"
+    networks:
+      - elk
+    depends_on:
+      - elasticsearch
+    links:
+      - elasticsearch
+
+  graph-ql:
+    build:
+      dockerfile: ./src/api/Dockerfile
+    ports:
+      - "10002:10002"
+    networks:
+      - elk
+    depends_on:
+      - product-service
+    links:
+      - product-service
+
 networks:
   elk:
     driver: bridge

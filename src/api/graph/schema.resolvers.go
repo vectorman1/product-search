@@ -6,8 +6,9 @@ package graph
 import (
 	"context"
 	"fmt"
-	"product-search/graph/generated"
-	"product-search/graph/model"
+
+	"github.com/vectorman/product-search/graph/graph/generated"
+	"github.com/vectorman/product-search/graph/graph/model"
 )
 
 func (r *queryResolver) Products(ctx context.Context) ([]*model.Product, error) {

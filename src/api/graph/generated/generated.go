@@ -6,10 +6,11 @@ import (
 	"bytes"
 	"context"
 	"errors"
-	"product-search/graph/model"
 	"strconv"
 	"sync"
 	"sync/atomic"
+
+	"github.com/vectorman/product-search/graph/graph/model"
 
 	"github.com/99designs/gqlgen/graphql"
 	"github.com/99designs/gqlgen/graphql/introspection"

@@ -1,4 +1,4 @@
-module product_service
+module github.com/vectorman1/product-search/grpc
 
 go 1.17
 

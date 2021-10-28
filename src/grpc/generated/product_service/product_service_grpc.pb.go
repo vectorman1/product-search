@@ -17,7 +17,7 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ProductServiceClient interface {
-	Search(ctx context.Context, in *ProductSearchRequest, opts ...grpc.CallOption) (*ProductSearchResponse, error)
+	Search(ctx context.Context, in *SearchRequest, opts ...grpc.CallOption) (*SearchResponse, error)
 }
 
 type productServiceClient struct {
@@ -28,8 +28,8 @@ func NewProductServiceClient(cc grpc.ClientConnInterface) ProductServiceClient {
 	return &productServiceClient{cc}
 }
 
-func (c *productServiceClient) Search(ctx context.Context, in *ProductSearchRequest, opts ...grpc.CallOption) (*ProductSearchResponse, error) {
-	out := new(ProductSearchResponse)
+func (c *productServiceClient) Search(ctx context.Context, in *SearchRequest, opts ...grpc.CallOption) (*SearchResponse, error) {
+	out := new(SearchResponse)
 	err := c.cc.Invoke(ctx, "/product_service.ProductService/Search", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -41,7 +41,7 @@ func (c *productServiceClient) Search(ctx context.Context, in *ProductSearchRequ
 // All implementations must embed UnimplementedProductServiceServer
 // for forward compatibility
 type ProductServiceServer interface {
-	Search(context.Context, *ProductSearchRequest) (*ProductSearchResponse, error)
+	Search(context.Context, *SearchRequest) (*SearchResponse, error)
 	mustEmbedUnimplementedProductServiceServer()
 }
 
@@ -49,7 +49,7 @@ type ProductServiceServer interface {
 type UnimplementedProductServiceServer struct {
 }
 
-func (UnimplementedProductServiceServer) Search(context.Context, *ProductSearchRequest) (*ProductSearchResponse, error) {
+func (UnimplementedProductServiceServer) Search(context.Context, *SearchRequest) (*SearchResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Search not implemented")
 }
 func (UnimplementedProductServiceServer) mustEmbedUnimplementedProductServiceServer() {}
@@ -66,7 +66,7 @@ func RegisterProductServiceServer(s *grpc.Server, srv ProductServiceServer) {
 }
 
 func _ProductService_Search_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ProductSearchRequest)
+	in := new(SearchRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -78,7 +78,7 @@ func _ProductService_Search_Handler(srv interface{}, ctx context.Context, dec fu
 		FullMethod: "/product_service.ProductService/Search",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ProductServiceServer).Search(ctx, req.(*ProductSearchRequest))
+		return srv.(ProductServiceServer).Search(ctx, req.(*SearchRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
