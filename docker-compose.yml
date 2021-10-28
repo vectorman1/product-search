@@ -16,21 +16,21 @@ services:
     networks:
       - elk
 
-  logstash:
-    image: docker.elastic.co/logstash/logstash-oss:6.2.2
-    volumes:
-      - ./logstash:/usr/share/logstash/pipeline:ro
-      - ./dataset:/var/log/dataset:ro
-    ports:
-      - "5000:5000"
-    environment:
-      LS_JAVA_OPTS: "-Xmx2048m -Xms2048m"
-    networks:
-      - elk
-    depends_on:
-      - elasticsearch
-    links:
-      - elasticsearch
+#  logstash:
+#    image: docker.elastic.co/logstash/logstash-oss:6.2.2
+#    volumes:
+#      - ./logstash:/usr/share/logstash/pipeline:ro
+#      - ./dataset:/var/log/dataset:ro
+#    ports:
+#      - "5000:5000"
+#    environment:
+#      LS_JAVA_OPTS: "-Xmx2048m -Xms2048m"
+#    networks:
+#      - elk
+#    depends_on:
+#      - elasticsearch
+#    links:
+#      - elasticsearch
 
   kibana:
     image: docker.elastic.co/kibana/kibana-oss:6.2.2
@@ -59,7 +59,7 @@ services:
 
   graph-ql:
     build:
-      dockerfile: ./src/api/Dockerfile
+      dockerfile: src/graphql-api/Dockerfile
     ports:
       - "10002:10002"
     networks:
