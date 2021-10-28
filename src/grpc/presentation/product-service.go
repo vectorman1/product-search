@@ -4,9 +4,8 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
-	"fmt"
 
-	"github.com/vectorman1/product-search/grpc/generated/product_service"
+	"github.com/vectorman1/product-search/proto/generated/product_service"
 
 	"github.com/elastic/go-elasticsearch/v8"
 )
@@ -67,9 +66,16 @@ func (s *productServiceServer) Search(ctx context.Context, req *product_service.
 	result := make([]*product_service.Product, 0, req.GetPageSize())
 	hits := response["hits"].(map[string]interface{})["hits"].([]map[string]interface{})
 	for _, hit := range hits {
-		product, ok := hit["_source"].(*product_service.Product)
-		if !ok {
-			return nil, fmt.Errorf("data is not a product")
+		doc := hit["_source"]
+		documentBytes, err := json.Marshal(doc)
+		if err != nil {
+			return nil, err
+		}
+
+		product := new(product_service.Product)
+		err = json.Unmarshal(documentBytes, product)
+		if err != nil {
+			return nil, err
 		}
 		result = append(result, product)
 	}
