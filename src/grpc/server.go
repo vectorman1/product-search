@@ -6,11 +6,9 @@ import (
 	"os"
 	"os/signal"
 
-	"github.com/vectorman1/product-search/proto/generated/product_service"
-
-	"github.com/vectorman1/product-search/grpc/presentation"
-
 	"github.com/elastic/go-elasticsearch/v8"
+	"github.com/vectorman1/product-search-proto/product_service"
+	"github.com/vectorman1/product-search/grpc/presentation"
 
 	"google.golang.org/grpc"
 )

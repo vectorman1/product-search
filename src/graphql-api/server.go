@@ -5,8 +5,8 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/vectorman/product-search/graph/graph"
-	"github.com/vectorman/product-search/graph/graph/generated"
+	"github.com/vectorman1/product-search/graphql-api/graph"
+	"github.com/vectorman1/product-search/graphql-api/graph/generated"
 
 	"github.com/99designs/gqlgen/graphql/handler"
 	"github.com/99designs/gqlgen/graphql/playground"

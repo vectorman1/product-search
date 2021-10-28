@@ -5,18 +5,10 @@ import (
 	"context"
 	"encoding/json"
 
-	"github.com/vectorman1/product-search/proto/generated/product_service"
+	"github.com/vectorman1/product-search-proto/product_service"
 
 	"github.com/elastic/go-elasticsearch/v8"
 )
-
-type searchResponse struct {
-	Hits struct {
-		Hits []struct {
-			product_service.Product `json:"_source"`
-		}
-	}
-}
 
 type productServiceServer struct {
 	es    *elasticsearch.Client
